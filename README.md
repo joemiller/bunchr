@@ -48,6 +48,17 @@ Installation
 gem install bunchr
 ```
 
+Usage
+-----
+
+The simplest workflow is:
+
+1. Create a `Rakefile`
+2. Define 1 or more `Bunchr::Software` objects
+3. Define 1 `Bunchr::Packages` object.
+4. run `rake`
+5. receive new packages (.rpm or .deb, depending on platform) !
+
 DSL Overview
 ------------
 
