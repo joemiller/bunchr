@@ -59,6 +59,8 @@ The simplest workflow is:
 4. run `rake`
 5. receive new packages (.rpm or .deb, depending on platform) !
 
+For details on the DSL and examples, continue reading.
+
 DSL Overview
 ------------
 
