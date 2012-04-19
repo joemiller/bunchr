@@ -11,6 +11,8 @@ module Bunchr
   @@install_dir = nil
 
   class << self
+    include Rake::DSL if RAKEVERSION >= '0.9.0' 
+  
     def install_dir
       if @@install_dir.nil?
         raise "You must set `Bunchr.install_dir = '/path'` in your Rakefile."

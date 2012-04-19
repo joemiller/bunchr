@@ -27,7 +27,7 @@ EOF
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.specification_version = 3 if s.respond_to? :specification_version
   
-  s.add_dependency("rake", ">= 0.8.0")
+  s.add_dependency("rake", ">= 0.8.7")
   s.add_dependency("ohai")
   s.add_dependency("systemu")
   s.add_dependency("fpm", "~> 0.4.6")
