@@ -99,7 +99,7 @@ Vagrant can help with this.
 
 Example `Rakefile`:
 
-```
+```ruby
 require 'bunchr'
 
 Bunchr.build_dir   = '/tmp/build'
@@ -219,7 +219,7 @@ packages.
 
 Example recipe for building and installing `ruby`:
 
-```
+```ruby
 Bunchr::Software.new do |t|
   t.name = 'ruby'
   t.version = '1.9.3-p125'
