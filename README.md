@@ -65,8 +65,8 @@ DSL Overview
 ------------
 
 A typical Bunchr project is comprised of one or more `Bunchr::Software` objects
-and a single `Bunchr::Packages` object. Define these all in a `Rakefile` or
-separate them into files.
+and a single `Bunchr::Packages` object. Define these all in a single `Rakefile` or
+separate them into files for readability and re-use.
 
 `Software` objects are responsible for downloading, building, and installing
 a single software component, such as `zlib` or `ruby`. `Software` objects
