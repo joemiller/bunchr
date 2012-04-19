@@ -135,7 +135,7 @@ end
 
 * `t.download_commands` - An array of shell commands used to download and 
   uncompress the source. You could also do a `git clone ..` here. These commands
-  are executed in the `download_dir` which is as `#{Bunchr.build_dir}/#{t.name}`.
+  are executed in the `download_dir` which is `#{Bunchr.build_dir}/#{t.name}`.
   The `download_dir` cannot be changed.
 
 * `t.build_commands` - An array of shell commands used to compile the downloaded 
