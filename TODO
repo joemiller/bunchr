@@ -1,0 +1,7 @@
+x	rakefile
+	readme 
+		vagrant examples (or link to sensu?)
+		other examples (or link to sensu-bunchr?)
+	refactor sensu project to use the gem
+	publish to github
+	twitter to those who were interested

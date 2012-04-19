@@ -1,0 +1,11 @@
+.vagrant*
+Attic
+pkg
+*.gem
+.vagrant
+tmp
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
