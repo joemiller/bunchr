@@ -29,7 +29,7 @@ to install and should not interfere with any other Ruby apps or scripts on the
 server.
 
 About the time the Sensu project was discussing a new packaging approach,
-(Adam Jacob) from [Opscode/Chef](http://opscode.com/) took notice and suggested
+[Adam Jacob](http://twitter.com/adamhjk) from [Opscode/Chef](http://opscode.com/) took notice and suggested
 a slightly different approach that achieved the same goals. The approach was
 called 'omnibus' and was already in use at Opscode to produce a simple and
 uniform installer for Chef.
