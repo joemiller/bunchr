@@ -19,7 +19,7 @@ ruby stack along with one or more gems, but useful for general compilation and
 packaging as well.
 EOF
 
-  s.files         = Dir['**/*']
+  s.files = FileList.new('README.md', 'examples/**/*', 'lib/**/*')
   s.require_paths = ["lib"]
   
   ## Make sure you can build the gem on older versions of RubyGems too:
