@@ -11,7 +11,7 @@ module Bunchr
   @@install_dir = nil
 
   class << self
-    include Rake::DSL if RAKEVERSION >= '0.9.0' 
+    include ::Rake::DSL if defined?(::Rake::DSL)
   
     def install_dir
       if @@install_dir.nil?
