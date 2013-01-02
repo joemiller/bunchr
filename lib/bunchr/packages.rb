@@ -10,7 +10,7 @@ module Bunchr
 
     # only attempt to build .rpm's on these platforms (as reported by
     # ohai.platform)
-    RPM_PLATFORMS = %w[centos redhat fedora scientific]
+    RPM_PLATFORMS = %w[centos redhat fedora scientific suse]
 
     # only attempt to build .deb's on these platforms (as reported by
     # ohai.platform)
