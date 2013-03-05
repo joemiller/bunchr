@@ -15,8 +15,8 @@ packaging as well.
 It is typically intended to be used in conjunction with [Vagrant](http://vagrantup.com)
 but can be used without Vagrant as well.
 
-History
--------
+Motivation
+----------
 
 Bunchr was conceived as a tool to help the [Sensu](https://github.com/sensu) 
 monitoring project find a better way to create packages that would be as
