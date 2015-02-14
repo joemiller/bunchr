@@ -14,7 +14,7 @@ module Bunchr
 
     # only attempt to build .deb's on these platforms (as reported by
     # ohai.platform)
-    DEB_PLATFORMS = %w[debian ubuntu]
+    DEB_PLATFORMS = %w[debian ubuntu raspbian]
 
     attr_accessor :name, :version, :iteration, :license, :vendor, :url, :category
     attr_accessor :description
