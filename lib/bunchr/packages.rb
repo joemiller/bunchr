@@ -63,6 +63,7 @@ module Bunchr
           define_build_tarball
           define_build_rpm
           define_build_deb
+          define_build_pkg
           # TODO-future: build solaris pkgs, windows too?!
 
           define_build_all
@@ -144,9 +145,36 @@ module Bunchr
       end
     end
 
+    def define_build_pkg
+      desc "Build pkg: #{name}-#{version}-#{iteration}-#{arch}"
+      task :build_pkg do
+
+        if PKG_PLATFORMS.include? ohai.platform
+          logger.info "Building PKG '#{name}-#{version}-#{iteration}-#{arch}'"
+
+          sh "fpm -s dir -t freebsd -a #{arch} -n #{name} -v #{version} \
+              --iteration #{iteration}                              \
+              --url         '#{url}'                                \
+              --description '#{description}'                        \
+              --license     '#{license}'                            \
+              --vendor      '#{vendor}'                             \
+              --category    '#{category}'                           \
+              #{fpm_scripts_args}                                   \
+              #{fpm_config_files_args}                              \
+              #{config_files.join(' ')}                             \
+              #{files.join(' ')}"
+
+          logger.info "PKG built."
+        else
+          logger.info "Not building PKG, platform [#{ohai.platform}] does not support it."
+        end
+
+      end
+    end
+
     def define_build_all
       desc "Build all packages: #{name}-#{version}-#{iteration}-#{arch}"
-      task :build => [:build_tarball, :build_rpm, :build_deb]
+      task :build => [:build_tarball, :build_rpm, :build_deb, :build_pkg]
     end
 
     # depend on a {Bunchr::Software} object to be built and installed
