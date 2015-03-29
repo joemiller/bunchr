@@ -20,7 +20,7 @@ module Bunchr
     attr_accessor :description
     attr_accessor :files, :config_files, :scripts
 
-  	def initialize
+    def initialize
       @name = nil
       @version = nil
       @iteration = nil
@@ -38,8 +38,8 @@ module Bunchr
       define unless name.nil? or version.nil?
     end
 
-    # 
-    # returns the current architecture. Convert some architectures for the 
+    #
+    # returns the current architecture. Convert some architectures for the
     # underlying packaging systems, such as i686 to i386.
     def arch
       case @arch
@@ -66,7 +66,7 @@ module Bunchr
           # TODO-future: build solaris pkgs, windows too?!
 
           define_build_all
-          
+
           task :done    => "#{name}:build"
           task :default => "#{name}:done"
         end
@@ -112,7 +112,7 @@ module Bunchr
         else
           logger.info "Not building RPM, platform [#{ohai.platform}] does not support it."
         end
-        
+
       end
     end
 
@@ -159,7 +159,7 @@ module Bunchr
     end
 
     # return an argument string for fpm with '--config-files' prefixed to
-    # every file in the config_files array. 
+    # every file in the config_files array.
     #   eg: '--config-files /etc/file1 --config-files /etc/file2'
     def fpm_config_files_args
       config_files.map { |f| '--config-files ' + f }.join(' ')
