@@ -16,7 +16,7 @@ module Bunchr
     # ohai.platform)
     DEB_PLATFORMS = %w[debian ubuntu]
 
-    attr_accessor :name, :version, :iteration, :license, :vendor, :url, :category
+    attr_accessor :name, :version, :iteration, :license, :vendor, :maintainer, :url, :category
     attr_accessor :description
     attr_accessor :files, :config_files, :scripts
 
@@ -27,6 +27,7 @@ module Bunchr
       @arch = ohai['kernel']['machine']
       @license = nil
       @vendor = nil
+      @maintainer = nil
       @category = nil
       @url = nil
       @description = nil
@@ -101,6 +102,7 @@ module Bunchr
               --license     '#{license}'                            \
               --vendor      '#{vendor}'                             \
               --category    '#{category}'                           \
+              --maintainer  '#{maintainer}'                         \
               #{fpm_scripts_args}                                   \
               #{fpm_config_files_args}                              \
               #{config_files.join(' ')}                             \
@@ -128,6 +130,7 @@ module Bunchr
               --license     '#{license}'                            \
               --vendor      '#{vendor}'                             \
               --category    '#{category}'                           \
+              --maintainer  '#{maintainer}'                         \
               #{fpm_scripts_args}                                   \
               #{fpm_config_files_args}                              \
               #{config_files.join(' ')}                             \
