@@ -152,7 +152,7 @@ module Bunchr
         if PKG_PLATFORMS.include? ohai.platform
           logger.info "Building PKG '#{name}-#{version}-#{iteration}-#{arch}'"
 
-          sh "fpm -s dir -t freebsd -a #{arch} -n #{name} -v #{version} \
+          cmd = "fpm -s dir -t freebsd -a #{arch} -n #{name} -v #{version} \
               --iteration #{iteration}                              \
               --url         '#{url}'                                \
               --description '#{description}'                        \
@@ -163,6 +163,9 @@ module Bunchr
               #{fpm_config_files_args}                              \
               #{config_files.join(' ')}                             \
               #{files.join(' ')}"
+
+          logger.info cmd.inspect
+          sh cmd
 
           logger.info "PKG built."
         else
