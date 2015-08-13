@@ -67,7 +67,7 @@ module Bunchr
         desc "Download, build, and install #{name} #{version}"
         task name => "#{name}:default"
       end
-      
+
     end
 
     def define_download
@@ -96,7 +96,7 @@ module Bunchr
       end
 
       file dotfile('build') => "software:#{name}:download" do
-        logger.info "Bulding #{name} #{version}"
+        logger.info "Building #{name} #{version}"
         Dir.chdir(work_dir) do
           build
         end
@@ -111,7 +111,7 @@ module Bunchr
         logger.info "#{name} #{version} is installed"
       end
 
-      file dotfile('install') => "software:#{name}:build" do 
+      file dotfile('install') => "software:#{name}:build" do
         logger.info "Installing #{name} #{version}"
         Dir.chdir(work_dir) do
           install
