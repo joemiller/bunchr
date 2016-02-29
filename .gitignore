@@ -4,6 +4,7 @@ pkg
 *.gem
 .vagrant
 tmp
+*.lock
 
 # YARD artifacts
 .yardoc
