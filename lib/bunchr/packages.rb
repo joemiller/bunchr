@@ -9,22 +9,26 @@ module Bunchr
     include ::Bunchr::Utils
 
     # only attempt to build .rpm's on these platforms (as reported by
-    # ohai.platform)
+    # ohai[:platform])
     RPM_PLATFORMS = %w[centos redhat fedora scientific suse]
 
     # only attempt to build .deb's on these platforms (as reported by
     # ohai.platform)
     DEB_PLATFORMS = %w[debian ubuntu raspbian]
 
+    # only attempt to build .pkg's on these platforms (as reported by
+    # ohai[:platform])
+    PKG_PLATFORMS = %w[freebsd]
+
     attr_accessor :name, :version, :iteration, :license, :vendor, :maintainer, :url, :category
     attr_accessor :description
     attr_accessor :files, :config_files, :scripts
 
-  	def initialize
+    def initialize
       @name = nil
       @version = nil
       @iteration = nil
-      @arch = ohai['kernel']['machine']
+      @arch = ohai[:kernel][:machine]
       @license = nil
       @vendor = nil
       @maintainer = nil
@@ -38,8 +42,8 @@ module Bunchr
       define unless name.nil? or version.nil?
     end
 
-    # 
-    # returns the current architecture. Convert some architectures for the 
+    #
+    # returns the current architecture. Convert some architectures for the
     # underlying packaging systems, such as i686 to i386.
     def arch
       case @arch
@@ -63,10 +67,11 @@ module Bunchr
           define_build_tarball
           define_build_rpm
           define_build_deb
+          define_build_pkg
           # TODO-future: build solaris pkgs, windows too?!
 
           define_build_all
-          
+
           task :done    => "#{name}:build"
           task :default => "#{name}:done"
         end
@@ -92,7 +97,7 @@ module Bunchr
       desc "Build RPM: #{name}-#{version}-#{iteration}-#{arch}"
       task :build_rpm do
 
-        if RPM_PLATFORMS.include? ohai.platform
+        if RPM_PLATFORMS.include? ohai[:platform]
           logger.info "Building RPM '#{name}-#{version}-#{iteration}-#{arch}'"
 
           sh "fpm -s dir -t rpm -a #{arch} -n #{name} -v #{version} \
@@ -110,9 +115,9 @@ module Bunchr
 
           logger.info "RPM built."
         else
-          logger.info "Not building RPM, platform [#{ohai.platform}] does not support it."
+          logger.info "Not building RPM, platform [#{ohai[:platform]}] does not support it."
         end
-        
+
       end
     end
 
@@ -120,7 +125,7 @@ module Bunchr
       desc "Build deb: #{name}-#{version}-#{iteration}-#{arch}"
       task :build_deb do
 
-        if DEB_PLATFORMS.include? ohai.platform
+        if DEB_PLATFORMS.include? ohai[:platform]
           logger.info "Building DEB '#{name}-#{version}-#{iteration}-#{arch}'"
 
           sh "fpm -s dir -t deb -a #{arch} -n #{name} -v #{version} \
@@ -138,7 +143,37 @@ module Bunchr
 
           logger.info "DEB built."
         else
-          logger.info "Not building DEB, platform [#{ohai.platform}] does not support it."
+          logger.info "Not building DEB, platform [#{ohai[:platform]}] does not support it."
+        end
+
+      end
+    end
+
+    def define_build_pkg
+      desc "Build pkg: #{name}-#{version}-#{iteration}-#{arch}"
+      task :build_pkg do
+
+        if PKG_PLATFORMS.include? ohai[:platform]
+          logger.info "Building PKG '#{name}-#{version}-#{iteration}-#{arch}'"
+
+          cmd = "fpm -s dir -t freebsd -a #{arch} -n #{name} -v #{version} \
+              --iteration #{iteration}                              \
+              --url         '#{url}'                                \
+              --description '#{description}'                        \
+              --license     '#{license}'                            \
+              --vendor      '#{vendor}'                             \
+              --category    '#{category}'                           \
+              #{fpm_scripts_args}                                   \
+              #{fpm_config_files_args}                              \
+              #{config_files.join(' ')}                             \
+              #{files.join(' ')}"
+
+          logger.info cmd.inspect
+          sh cmd
+
+          logger.info "PKG built."
+        else
+          logger.info "Not building PKG, platform [#{ohai[:platform]}] does not support it."
         end
 
       end
@@ -146,7 +181,7 @@ module Bunchr
 
     def define_build_all
       desc "Build all packages: #{name}-#{version}-#{iteration}-#{arch}"
-      task :build => [:build_tarball, :build_rpm, :build_deb]
+      task :build => [:build_tarball, :build_rpm, :build_deb, :build_pkg]
     end
 
     # depend on a {Bunchr::Software} object to be built and installed
@@ -159,7 +194,7 @@ module Bunchr
     end
 
     # return an argument string for fpm with '--config-files' prefixed to
-    # every file in the config_files array. 
+    # every file in the config_files array.
     #   eg: '--config-files /etc/file1 --config-files /etc/file2'
     def fpm_config_files_args
       config_files.map { |f| '--config-files ' + f }.join(' ')
