@@ -1,3 +1,8 @@
+0.1.7
+-----
+- added raspbian to the list of supported debian distros (thanks @hughsaunders)
+- pinned fpm version to 1.6.1 for freebsd support
+
 0.1.6
 -----
 - added fpm maintainer support
