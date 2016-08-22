@@ -126,6 +126,8 @@ module Bunchr
       task :build_deb do
 
         if DEB_PLATFORMS.include? ohai[:platform]
+          # Instead of guessing architecture from the kernel, ask the packager
+          @arch = `dpkg --print-architecture`.strip()
           logger.info "Building DEB '#{name}-#{version}-#{iteration}-#{arch}'"
 
           sh "fpm -s dir -t deb -a #{arch} -n #{name} -v #{version} \
