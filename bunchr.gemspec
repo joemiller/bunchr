@@ -28,5 +28,5 @@ EOF
   s.add_dependency("rake", ">= 0.8.7")
   s.add_dependency("ohai")
   s.add_dependency("systemu")
-  s.add_dependency("fpm", "= 1.6.1")
+  s.add_dependency("fpm", "= 1.6.2")
 end

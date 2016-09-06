@@ -1,3 +1,8 @@
+0.1.8
+-----
+- ask the packager for architecture on debian platforms (thanks @edolnx)
+- pinned fpm version to 1.6.2
+
 0.1.7
 -----
 - added raspbian to the list of supported debian distros (thanks @hughsaunders)
